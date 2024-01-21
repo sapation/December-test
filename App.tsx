@@ -1,11 +1,33 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View,FlatList } from 'react-native';
+import { StyleSheet, Text, View,FlatList, ActivityIndicator } from 'react-native';
 import DayListItem from './src/components/core/DayListItem';
+import { useFonts, Inter_900Black } from '@expo-google-fonts/inter';
+import { AmaticSC_400Regular,AmaticSC_700Bold } from '@expo-google-fonts/amatic-sc';
+import * as SplashScreen from 'expo-splash-screen';
+import { useEffect } from 'react';
 
 
 const days = [...Array(24)].map((val, index)=> index + 1);
 
+SplashScreen.preventAutoHideAsync();
+
 export default function App() {
+  const [fontsLoaded, fontError] = useFonts({
+    Inter: Inter_900Black,
+    Amatic: AmaticSC_400Regular,
+    AmaticBold: AmaticSC_700Bold
+  });
+
+  useEffect(()=> {
+     if (fontsLoaded || fontError) {
+        SplashScreen.hideAsync();
+    }
+  }, [fontsLoaded, fontError])
+ 
+   if (!fontsLoaded && !fontError) {
+        return null;
+    }
+
   return (
     <View style={styles.container}>
       <FlatList 
@@ -36,23 +58,4 @@ const styles = StyleSheet.create({
     gap: 10
   },
 
-  box: {
-    backgroundColor: '#F9EDE3',
-    // width: 300,
-    // height: 300,
-    flex: 1,
-    aspectRatio: 1,
-
-    borderRightWidth: StyleSheet.hairlineWidth,
-    borderColor: '#9b4521',
-    borderRadius: 20,
-
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-
-  text: {
-    color: '#9b4521',
-    fontSize: 70
-  }
 });
