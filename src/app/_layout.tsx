@@ -1,4 +1,4 @@
-import { Slot, Stack } from "expo-router";
+import { Stack } from "expo-router";
 import { useFonts, Inter_900Black } from '@expo-google-fonts/inter';
 import { AmaticSC_400Regular,AmaticSC_700Bold } from '@expo-google-fonts/amatic-sc';
 import * as SplashScreen from 'expo-splash-screen';
